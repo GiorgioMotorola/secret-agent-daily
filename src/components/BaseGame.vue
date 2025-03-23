@@ -12,6 +12,7 @@
           <div class="address-one">17 W <span style="color: #3d3d3d;">10th St.</span> Alley</div>
           <div class="address-two">Unit B-13</div>
           <div class="address-three">Blackridge, <span style="color: #3d3d3d;">MI 48207</span></div>
+          <div class="random-ltr">QWERTYUIOPASDFGHJKL<span style="background-color: black;">ZXCVBNM</span>ZXCVBNMASDFGHJKLQWERTYUIOPASDFGHJKLQWERTYU<span style="background-color: black;">IOPZXCVBNMPOIUYTREWQASD</span>FGHJKLMNBsfcDJISVCXZLKJHG<span style="background-color: black;">godpsjcs</span>FDSAQWERTYUIOPMNBVCXZMNBVCXZASDFGH<span style="background-color: black;">JKLPOIUYTREWQ1234567890QWERTYUIOPASDFGHJKLZXCVBNM0987654321ZXCVBNMASDFGHJKLQWERTYUIOP5678901234A</span>SDFGHJKLQWERTYUIOPZXCVBNM9018273645POIUYTREWQASDFGHJKLMNBVCXZ</div>
         </div>
 
         <div class="hint-box">
@@ -36,9 +37,6 @@
             </template>
             <button class="give-up-btn" @click="giveUp" v-if="hint1Shown && hint2Shown && hint3Shown && !solved && !gaveUp">Give Up?</button>
           </div>
-        </div>
-        <div class="image-box">
-          <img :src="imageUrl" alt="Puzzle Image" />
         </div>
       </div>
 
@@ -107,7 +105,7 @@
         userName: '',
         notificationMessage: '',
         showNotification: false,
-        imageUrl: './public/map.png',
+        // imageUrl: './public/map.png',
       };
     },
     computed: {
@@ -284,6 +282,17 @@
   grid-template-columns: 600px 1fr;
   gap: 20px;
   padding: 20px;
+}
+
+.random-ltr {
+  word-wrap:break-word;
+  background-color: var(--main-bg-color);
+  letter-spacing: 1rem;
+  margin-top: 2.5rem;
+  padding: 10px;
+  border-top: 1px dashed black;
+  border-bottom: 1px dashed black;
+  color: #000000;
 }
 
 .left-panel {
