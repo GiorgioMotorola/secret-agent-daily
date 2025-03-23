@@ -561,5 +561,9 @@ input::placeholder {
 .image-box img {
   display: none;
 }
+
+.random-ltr {
+  display: none;
+}
 }
 </style>
