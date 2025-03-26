@@ -41,19 +41,19 @@
                   <button class="hint-button" @click="showHint(0)">&#x1F50E;&#xFE0E; CLICK HERE TO VIEW HINT</button>
                 </template>
                 <template v-else>
-                  <div class="hint-one" :class="{ show: hint1Shown }">&#128448; &nbsp;{{ puzzle ? puzzle.additional_hints[0] : '' }}</div>
+                  <div class="hint-one" :class="{ show: hint1Shown }">&#128193; &nbsp;{{ puzzle ? puzzle.additional_hints[0] : '' }}</div>
                 </template>
                 <template v-if="!hint2Shown">
                   <button class="hint-button" @click="showHint(1)">&#x1F50E;&#xFE0E; CLICK HERE TO VIEW HINT</button>
                 </template>
                 <template v-else>
-                  <div class="hint-two" :class="{ show: hint2Shown }">&#128448; &nbsp;{{ puzzle ? puzzle.additional_hints[1] : '' }}</div>
+                  <div class="hint-two" :class="{ show: hint2Shown }">&#128193; &nbsp;{{ puzzle ? puzzle.additional_hints[1] : '' }}</div>
                 </template>
                 <template v-if="!hint3Shown">
                   <button class="hint-button" @click="showHint(2)">&#x1F50E;&#xFE0E; CLICK HERE TO VIEW HINT</button>
                 </template>
                 <template v-else>
-                  <div class="hint-three" :class="{ show: hint3Shown }">&#128448; &nbsp;{{ puzzle ? puzzle.additional_hints[2] : '' }}</div>
+                  <div class="hint-three" :class="{ show: hint3Shown }">&#128193; &nbsp;{{ puzzle ? puzzle.additional_hints[2] : '' }}</div>
                 </template>
                 <button class="give-up-btn" @click="giveUp" v-if="hint1Shown && hint2Shown && hint3Shown && !solved && !gaveUp">Give Up?</button>
               </div>
