@@ -6,7 +6,9 @@
     <div class="grid-container">
       <div class="left-panel">
         <div class="info-box">
-          <div class="title">SECRET AGENT</div>
+          <div class="title" :class="{ animatedTitle: titleAnimating }">
+            {{ animatedTitleText }}
+          </div>
           <div class="entry-and-puzzle">
             <div class="entry-number">{{ puzzle ? puzzle.entry : '' }}</div>
             <div class="puzzle-date">{{ currentDate }}</div>
@@ -15,7 +17,10 @@
       </div>
 
       <div class="right-panel">
-        <div v-if="loading">Loading puzzle...</div>
+        <div v-if="loading" class="loading-container">
+          <div class="loading-spinner"></div>
+          <p class="loading-text">Loading puzzle...</p>
+        </div>
         <div v-else-if="puzzle">
           <div class="letter-container">
             <div class="coded-phrase">
@@ -61,7 +66,7 @@
             <button class="share-results" v-if="solved || gaveUp" @click="shareResults">Share Results</button>
           </div>
         </div>
-        <div v-else>
+        <div v-else-if="!loading && !puzzle">
           <p>No puzzle available for today.</p>
         </div>
       </div>
@@ -88,6 +93,9 @@
         userName: '',
         notificationMessage: '',
         showNotification: false,
+        titleAnimating: true,
+        animatedTitleText: '',
+        originalTitle: 'SECRET AGENT',
       };
     },
     components: {
@@ -131,25 +139,42 @@
           this.gaveUp = true;
         }
       }
+      this.animateTitle();
       this.logResetTime();
     },
     methods: {
-        async fetchPuzzle() {
-        this.loading = true;
-        const today = new Date().toISOString().slice(0, 10);
-        const puzzlesRef = collection(db, 'puzzles');
-        const q = query(puzzlesRef, where('date', '==', today));
+      async fetchPuzzle() {
+      this.loading = true;
+      const today = new Date().toISOString().slice(0, 10);
+      const puzzlesRef = collection(db, 'puzzles');
+      const q = query(puzzlesRef, where('date', '==', today));
 
-        const querySnapshot = await getDocs(q);
+      const querySnapshot = await getDocs(q);
 
-        if (!querySnapshot.empty) {
-            const doc = querySnapshot.docs[0];
-            this.puzzle = doc.data();
+      await new Promise(resolve => setTimeout(resolve, 700)); 
+
+      if (!querySnapshot.empty) {
+        const doc = querySnapshot.docs[0];
+        this.puzzle = doc.data();
+      } else {
+        this.puzzle = null;
+      }
+      this.loading = false;
+    },
+        animateTitle() {
+      const cipher = 'WIGVIX EKIRX';
+      let index = 0;
+      const interval = setInterval(() => {
+        if (index < this.originalTitle.length) {
+          this.animatedTitleText = this.originalTitle.substring(0, index) + cipher.substring(index);
+          index++;
         } else {
-            this.puzzle = null;
+          this.animatedTitleText = this.originalTitle;
+          this.titleAnimating = false;
+          clearInterval(interval);
         }
-        this.loading = false;
-        },
+      }, 125);
+    },
       initializeDecoded() {
         if (this.puzzle) {
           this.decodedPhrase = Array(this.puzzle.coded_phrase.length).fill('');
@@ -273,6 +298,10 @@
   padding: 2px;
   max-width: 700px; 
   margin: 0 auto;
+}
+
+.animatedTitle {
+  transition: all 2s ease-in;
 }
 
 .left-panel,
@@ -415,6 +444,40 @@ input[type="text"] {
   margin-bottom: 10px;
   border-radius: 5px;
   text-align: center;
+}
+
+.loading-container {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #121213;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.loading-spinner {
+  border: 4px solid rgba(204, 204, 204, 0.3);
+  border-top: 4px solid #ccc;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+.loading-text {
+  color: white;
+  font-size: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @media (max-width: 700px) {

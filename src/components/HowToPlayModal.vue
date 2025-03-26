@@ -115,12 +115,13 @@
     font-size: 16px;
     cursor: pointer;
     margin-top: 6rem;
-    background-color: azure;
+    background-color: #121213;
     border-radius: 5%;
     border: 1px solid white;
+    color: wheat;
   }
   
   button:hover {
-    background-color: antiquewhite;
+    background-color: rgb(82, 81, 79);
   }
   </style>
