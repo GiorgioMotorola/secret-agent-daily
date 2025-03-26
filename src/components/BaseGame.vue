@@ -416,4 +416,28 @@ input[type="text"] {
   border-radius: 5px;
   text-align: center;
 }
+
+@media (max-width: 700px) {
+  .coded-phrase {
+  margin-top: 4rem;
+}
+
+.code-div {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  width: 15px;
+  text-align: center;
+  padding: 6px;
+  color:  rgb(250, 252, 252);
+  border: 1px solid rgb(146, 199, 199);
+  background-color: #757474;
+  border-radius: 10%;
+  font-size: 15px;
+}
+
+
+}
 </style>
