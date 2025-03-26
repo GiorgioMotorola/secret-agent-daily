@@ -317,7 +317,7 @@
 }
 
 .give-up-btn {
-  background-color: red;
+  background-color: rgb(168, 10, 10);
   padding: 10px 15px;
 }
 
@@ -390,7 +390,7 @@ input[type="text"] {
 }
 
 .gave-up {
-  color: red;
+  color: rgb(190, 87, 87);
 }
 
 .share-results {
